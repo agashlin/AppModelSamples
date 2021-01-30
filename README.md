@@ -1,3 +1,5 @@
+NOTE: This branch is attempting to use TaskbarManager from a sparse package, which does not seem to work.
+
 # App Model Samples
 The App Model represents the core application activation and lifecycle management infrastructure in the platform. These are the components that are responsible for actually activating apps, creating processes, integrating the app with the platform, managing the activate-suspend-resume-terminate cycle, negotiating resource allocations, and so on. The App Model also exposes some developer-focused APIs for diagnostics.
 More information:

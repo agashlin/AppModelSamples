@@ -1,3 +1,5 @@
+NOTE: This branch is attempting to use TaskbarManager from a sparse package, which does not seem to work.
+
 This repo contains a sample C# application demonstrating how to use [Signed Sparse Packages](https://aka.ms/sparsepkgblog) to give a non-packaged desktop app access to new Windows APIs and features. 
 
 ## Instructions
