@@ -26,15 +26,18 @@ namespace PhotoStoreDemo
                 //TODO - update the value of externalLocation to match the output location of your VS Build binaries and the value of 
                 //sparsePkgPath to match the path to your signed Sparse Package (.msix). 
                 //Note that these values cannot be relative paths and must be complete paths
-                string externalLocation = @"";
-                string sparsePkgPath = @"";
+                string externalLocation = @"C:\Users\Adam Gashlin\source\repos\AppModelSamples\Samples\SparsePackages\PhotoStoreDemo\bin\Debug";
+                string sparsePkgPath = @"C:\Users\Adam Gashlin\source\repos\AppModelSamples\Samples\SparsePackages\demo.msix";
 
                 //Attempt registration
                 if (registerSparsePackage(externalLocation, sparsePkgPath))
                 {
+                    Thread.Sleep(2 * 1000);
                     //Registration succeded, restart the app to run with identity
+                    Debug.WriteLine("Registration succeded, restart the app to run with identity");
                     System.Diagnostics.Process.Start(Application.ResourceAssembly.Location, arguments: cmdArgs?.ToString());
 
+                    Debug.WriteLine("After relaunch");
                 }
                 else //Registration failed, run without identity
                 {
@@ -46,6 +49,7 @@ namespace PhotoStoreDemo
             }
             else //App is registered and running with identity, handle launch and activation
             {
+                Console.WriteLine("App is registered and running with identity");
                 //Handle Sparse Package based activation e.g Share target activation or clicking on a Tile
                 // Launching the .exe directly will have activationArgs == null
                 var activationArgs = AppInstance.GetActivatedEventArgs();

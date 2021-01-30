@@ -8,7 +8,7 @@
   xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
   xmlns:uap10="http://schemas.microsoft.com/appx/manifest/uap/windows10/10"
   IgnorableNamespaces="uap uap2 uap3 rescap desktop uap10">
-  <Identity Name="PhotoStoreDemo" ProcessorArchitecture="x64" Publisher="CN=Contoso" Version="1.0.0.0" />
+  <Identity Name="PhotoStoreDemo" ProcessorArchitecture="x64" Publisher="CN=agashlin Test Name, O=Test Org, C=US" Version="1.0.0.0" />
   <Properties>
     <DisplayName>PhotoStoreDemo</DisplayName>
     <PublisherDisplayName>Sparse Package</PublisherDisplayName>
@@ -19,7 +19,7 @@
     <Resource Language="en-us" />
   </Resources>
   <Dependencies>
-    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.18950.0" MaxVersionTested="10.0.19000.0" />
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.19000.0" MaxVersionTested="10.0.19000.0" />
   </Dependencies>
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
@@ -28,7 +28,12 @@
   <Applications>
     <Application Id="PhotoStoreDemo" Executable="PhotoStoreDemo.exe" uap10:TrustLevel="mediumIL" uap10:RuntimeBehavior="win32App"> 
       <uap:VisualElements AppListEntry="none" DisplayName="PhotoStoreDemo" Description="PhotoStoreDemo" BackgroundColor="transparent" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png"></uap:DefaultTile>
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png" ShortName="PhotoStoreDemo">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+            <uap:ShowOn Tile="wide310x150Logo" />
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>

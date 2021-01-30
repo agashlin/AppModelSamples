@@ -28,6 +28,9 @@ using System.Windows.Media.Imaging;
 using Windows.UI.Notifications;
 using Windows.Data.Xml.Dom;
 using System.Reflection;
+using System.Diagnostics;
+using Windows.UI.Shell;
+using Windows.Foundation.Metadata;
 
 namespace PhotoStoreDemo
 {
@@ -299,28 +302,78 @@ namespace PhotoStoreDemo
             var toastNotifier = toastManager.CreateToastNotifier();
             XmlDocument xml = new XmlDocument();
             xml.LoadXml(@"
-                <toast>
-                    <visual>
-                      <binding template='ToastGeneric'>
-                        <text>Send an image path to the app</text>  
-                      </binding>
-                    </visual>
-                    <actions>
-                        <input id='textBox' type='text' placeHolderContent='Type a reply'/>
-                        <action
-                            content='Send'
-                            arguments='action=send'
-                            activationType='foreground'/>
-                        <action
-                            content='Cancel'
-                            arguments='dismiss'
-                            activationType='system'/>
-                    </actions>
-                </toast>");
+                      <toast>
+                          <visual>
+                            <binding template='ToastGeneric'>
+                              <text>Send an image path to the app</text>  
+                            </binding>
+                          </visual>
+                          <actions>
+                              <input id='textBox' type='text' placeHolderContent='Type a reply'/>
+                              <action
+                                  content='Send'
+                                  arguments='action=send'
+                                  activationType='foreground'/>
+                              <action
+                                  content='Cancel'
+                                  arguments='dismiss'
+                                  activationType='system'/>
+                          </actions>
+                      </toast>");
             ToastNotification notification = new ToastNotification(xml);
             toastNotifier.Show(notification);
         }
 
-        
-    }
+        private async void Pin_To_Taskbar_Click(object sender, RoutedEventArgs e) {
+            if (!ApiInformation.IsTypePresent("Windows.UI.Shell.TaskbarManager"))
+            {
+                Debug.WriteLine("TaskbarManager API not present");
+                return;
+            }
+
+            Debug.WriteLine("TaskbarManager API present");
+
+            TaskbarManager manager = TaskbarManager.GetDefault();
+
+            if (manager == null)
+            {
+                Debug.WriteLine("Failed to get default TaskbarManager");
+                return;
+            }
+            Debug.WriteLine("Got TaskbarManager");
+
+            bool isTaskbarSupported = TaskbarManager.GetDefault().IsSupported;
+            if (!isTaskbarSupported)
+            {
+                Debug.WriteLine("Taskbar not supported");
+                return;
+            }
+            Debug.WriteLine("Taskbar supported");
+
+            bool isPinningAllowed = TaskbarManager.GetDefault().IsPinningAllowed;
+            if (!isPinningAllowed)
+            {
+                Debug.WriteLine("Pinning not allowed");
+                return;
+            }
+            Debug.WriteLine("Pinning allowed");
+
+            if (await TaskbarManager.GetDefault().IsCurrentAppPinnedAsync())
+            {
+                Debug.WriteLine("Already pinned");
+                return;
+            }
+
+            Debug.WriteLine("Not pinned yet");
+            bool isPinned = await TaskbarManager.GetDefault().RequestPinCurrentAppAsync();
+            if (isPinned)
+            {
+                Debug.WriteLine("Pinned!");
+            }
+            else
+            {
+                Debug.WriteLine("Pin attempt failed");
+            }
+        }
+  }
 }

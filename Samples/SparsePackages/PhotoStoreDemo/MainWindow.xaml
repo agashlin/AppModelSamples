@@ -688,6 +688,7 @@
                 Click="Add_Via_Toast_Click"
                 Width="76"
                 Margin="0,0,324,42" Content="Add Via Toast"/>
+            <Button x:Name="Pin_To_Taskbar" Content="Pin To Taskbar" Click="Pin_To_Taskbar_Click" HorizontalAlignment="Left" Height="24" Margin="-95,-3,0,0" VerticalAlignment="Top" Width="90" RenderTransformOrigin="0.311,-0.844"/>
         </Grid>
     </Viewbox>
 </Window>
